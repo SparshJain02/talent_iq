@@ -2,9 +2,21 @@ import express from "express"
 import path from "path"
 import { ENV } from "./lib/env.js";
 import { connectDb } from "./lib/db.js";
-
+import {serve} from "inngest/express"
+import { inngest,functions } from "./lib/inngest.js";
+import cors from "cors"
 const app = express();
 const __dirname = path.resolve();
+
+app.use(express.json());
+
+// cors
+app.use(cors({
+    origin: ENV.CLIENT_URL,
+    credentails: true,
+}))
+
+app.use("/api/inngest", serve({ client: inngest, functions }));
 
 app.get("/admin", (req, res) => {
     res.status(200).send({ message: "Welcome admin!" })
