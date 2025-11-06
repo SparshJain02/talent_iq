@@ -22,7 +22,7 @@ app.listen(ENV.PORT, async () => {
 
 
 // make our app ready for deployment
-if (ENV.NODE_ENV === "") {
+if (ENV.NODE_ENV === "development") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
     // if none of the server routes match the request then follows our react app 
