@@ -1,5 +1,5 @@
 import dotenv from "dotenv"
-dotenv.config();
+dotenv.config({quiet: true}); // this will stop annoying messages in terminal which shows env count and injecting stuff
 
 export const ENV = {
     PORT: process.env.PORT,
