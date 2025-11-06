@@ -12,7 +12,7 @@
     "url": "git+https://github.com/SparshJain02/talent_iq.git"
   },
   "engines": {
-    "node": "18"
+    "node": "22.18.0"
   },
   "keywords": [],
   "author": "",
