@@ -11,6 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/SparshJain02/talent_iq.git"
   },
+  "engines": {
+    "node": "18"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
