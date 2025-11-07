@@ -6,7 +6,7 @@ export const inngest = new Inngest({ id: "talent-iq" });
 
 const sync_user = inngest.createFunction(
     {id: "sync-user"},
-    {event: "webook-integration/user.created"},
+    {event: "clerk/user.created"},
     async ({event})=>{
         try {
             // Ensure DB connection (server also connects on startup)
@@ -29,7 +29,7 @@ const sync_user = inngest.createFunction(
 )
 const delete_user = inngest.createFunction(
     {id: "delete-user"},
-    {event: "webhook-integration/user.deleted"},
+    {event: "clerk/user.deleted"},
     async (event)=>{
         try {
             await connectDb();
