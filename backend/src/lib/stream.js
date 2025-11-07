@@ -13,7 +13,7 @@ export const streamServerClient = StreamChat.getInstance(api_key,api_secret);
 
 export const upsertStreamClient = async(userObject)=>{
     try{
-        await streamServerClient.upsertUsers(userObject);
+        await streamServerClient.upsertUser(userObject);
         console.log("user added in stream")
     }
     catch(err){
