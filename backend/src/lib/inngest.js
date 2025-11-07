@@ -30,7 +30,7 @@ const sync_user = inngest.createFunction(
 const delete_user = inngest.createFunction(
     {id: "delete-user"},
     {event: "clerk/user.deleted"},
-    async (event)=>{
+    async ({event})=>{
         try {
             await connectDb();
             const {id} = event.data;
