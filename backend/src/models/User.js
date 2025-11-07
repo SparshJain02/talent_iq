@@ -7,12 +7,11 @@ const userSchema = mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unqiue: true
+        unique: true
     },
     profilePhoto: {
         type: String,
         default: "",
-        required: true
     },
     clerkId: {
         type: String,
@@ -22,4 +21,4 @@ const userSchema = mongoose.Schema({
     
 },{timestamps: true})
 
-export const User = new mongoose.model("User",userSchema);
+export const User = mongoose.model("User", userSchema);
