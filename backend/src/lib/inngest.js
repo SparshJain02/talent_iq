@@ -6,7 +6,7 @@ export const inngest = new Inngest({ id: "talent-iq" });
 
 const sync_user = inngest.createFunction(
     {id: "sync-user"},
-    {event: "webhook-integration/user.created"},
+    {event: "webook-integration/user.created"},
     async ({event})=>{
         try {
             // Ensure DB connection (server also connects on startup)
@@ -19,8 +19,7 @@ const sync_user = inngest.createFunction(
                 clerkId: id
             };
 
-            const created = await User.create(currUser);
-            console.log('sync-user: user created', created._id?.toString());
+            await User.create(currUser);
         } catch (err) {
             console.error('sync-user: failed to sync user', err, event?.data);
             throw err;
@@ -35,7 +34,7 @@ const delete_user = inngest.createFunction(
         try {
             await connectDb();
             const {id} = event.data;
-            const res = await User.deleteOne({clerkId: id});
+           await User.deleteOne({clerkId: id});
         } catch (err) {
             console.error('delete-user: failed to delete user', err, event?.data);
             throw err;
