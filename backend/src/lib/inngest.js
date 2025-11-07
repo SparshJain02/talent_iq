@@ -6,27 +6,40 @@ export const inngest = new Inngest({ id: "talent-iq" });
 
 const sync_user = inngest.createFunction(
     {id: "sync-user"},
-    {event: "clerk/user.created"},
-    async (event)=>{
-        await connectDb();
-        const {id,first_name,last_name,image_url,email_addresses} = event.data;
-        const currUser = {
-            name: `${first_name || ""} ${last_name || ""}`,
-            email: email_addresses[0].email_address,
-            profilePhoto: image_url,
-            clerkId: id
-        };
-        await User.create(currUser);
+    {event: "webhook-integration/user.created"},
+    async ({event})=>{
+        try {
+            // Ensure DB connection (server also connects on startup)
+            await connectDb();
+            const {email_addresses,first_name,id,image_url,last_name} = event.data;
+            const currUser = {
+                name: `${first_name || ""} ${last_name || ""}`.trim(),
+                email: email_addresses[0]?.email_address, // email_addresses[0]["email_address"]
+                profilePhoto: image_url,
+                clerkId: id
+            };
+
+            const created = await User.create(currUser);
+            console.log('sync-user: user created', created._id?.toString());
+        } catch (err) {
+            console.error('sync-user: failed to sync user', err, event?.data);
+            throw err;
+        }
     }
 
 )
 const delete_user = inngest.createFunction(
     {id: "delete-user"},
-    {event: "clerk/user.deleted"},
+    {event: "webhook-integration/user.deleted"},
     async (event)=>{
-        await connectDb();
-        const {id} = event.data;
-        await User.deleteOne({clerkId: id})
+        try {
+            await connectDb();
+            const {id} = event.data;
+            const res = await User.deleteOne({clerkId: id});
+        } catch (err) {
+            console.error('delete-user: failed to delete user', err, event?.data);
+            throw err;
+        }
     }
 
 )
