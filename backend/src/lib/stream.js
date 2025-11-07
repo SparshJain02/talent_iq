@@ -27,6 +27,6 @@ export const deleteStreamClient = async(id)=>{
         console.log("user deleted from stream successfully");
     }
     catch(err){
-        console.log("Failed to delete user from stream: ",err);
+        console.log("Failed to delete user from stream: ",err)
     }
 }
