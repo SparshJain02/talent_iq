@@ -58,7 +58,7 @@ export const  getActiveSessions = async (_,res)=>{
 }
 export const  getMyRecentSessions = async (req,res)=>{
     try{
-        const userId = req.user.clerkId;
+        const userId = req.user._id;
         // recent sessions will be the one where user could be either host or participant
         const sessions = await Session.find({
             status: "completed",
@@ -94,16 +94,18 @@ export const  joinSession = async (req,res)=>{
     const {id} = req.params;
     const userId = req.user._id;
     const clerkId = req.user.clerkId;
-    const session = await Session.findById(id);
+   const session = await Session.findOneAndUpdate(
+    {_id: id,participant: null,status: "active"},
+    {$set: {participant:userId}},
+    {new: true});
     if(!session){
-        return res.status(404).json({message: "Session is not found"});
+        return res.status(404).json({message: "session is not found or already full"});
     }
-    if(session.participant) return res.status(404).json({message: "Session is full"});
-    session.participant = userId;
-    await session.save();
-
     const channel = streamChatClient.channel("messaging",session.callId);
     await channel.addMembers([clerkId])
+    return res.status(200).json({
+       message: "Joined session successfully"
+   });
 }
 export const  endSession = async (req,res)=>{
     try{
@@ -129,7 +131,7 @@ export const  endSession = async (req,res)=>{
         await channel.delete();
         
         res.status(200).json({message: "Session ended successfully"});
-        
+
         session.status = "completed";
         await session.save();
     }
