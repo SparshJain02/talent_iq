@@ -5,7 +5,7 @@ import { ENV } from "./env.js";
 const api_key = ENV.STREAM_API_KEY
 const api_secret =ENV.STREAM_API_SECRET  
 
-if(api_key || api_secret){
+if(!api_key || !api_secret){
     console.error("stream api key or stream api secret is missing")
     
 }

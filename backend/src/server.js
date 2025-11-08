@@ -4,34 +4,32 @@ import { ENV } from "./lib/env.js";
 import { connectDb } from "./lib/db.js";
 import {serve} from "inngest/express"
 import { inngest,functions } from "./lib/inngest.js";
+import { clerkMiddleware } from '@clerk/express'
+import chatRoutes from "./routes/chatRoutes.js";
 import cors from "cors"
 const app = express();
 const __dirname = path.resolve();
 
+// middlewares
 app.use(express.json());
-
-// cors
+app.use(clerkMiddleware())
+app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use(cors({
     origin: ENV.CLIENT_URL,
-    credentails: true,
+    credentials: true,
 }))
-
-app.use("/api/inngest", serve({ client: inngest, functions }));
 
 app.get("/admin", (req, res) => {
     res.status(200).send({ message: "Welcome admin!" })
 })
 
-app.get("/sparsh", (req, res) => {
-    res.status(200).send({ message: "yep that's me..." });
-})
+// routes
+app.use("/api/chat",chatRoutes);
 
 app.listen(ENV.PORT, async () => {
     await connectDb();
     console.log("server is running on port" , ENV.PORT)
 })
-
-
 
 // make our app ready for deployment
 if (ENV.NODE_ENV === "production") {
