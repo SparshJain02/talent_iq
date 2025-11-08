@@ -1,10 +1,10 @@
 import { streamServerClient } from "../lib/stream"
 export const getStreamToken = (req,res)=>{
     try{
-        const token =  streamServerClient.createToken(req.user.clerkID);
+        const token =  streamServerClient.createToken(req.user.clerkId);
         res.status(200).json({
             token,
-            userId: req.user.clerkID,
+            userId: req.user.clerkId,
             userName: req.user.name,
             userImage:req.user.profilePhoto
         })

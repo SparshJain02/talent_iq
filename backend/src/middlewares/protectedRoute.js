@@ -9,7 +9,7 @@ export const protectRoute = [
         const clerkId = req.auth.userId;
         try{
             const user = await User.findOne({clerkId})
-            if(!res){
+              if(!user){
                 return res.status(401).json({message:"user does not exist"})
             }
             // if user exist and in db then: 

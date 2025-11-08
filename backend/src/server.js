@@ -7,7 +7,6 @@ import { inngest,functions } from "./lib/inngest.js";
 import { clerkMiddleware } from '@clerk/express'
 import chatRoutes from "./routes/chatRoutes.js";
 import cors from "cors"
-import { protectRoute } from "./middlewares/protectedRoute.js";
 const app = express();
 const __dirname = path.resolve();
 
@@ -17,7 +16,7 @@ app.use(clerkMiddleware())
 app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use(cors({
     origin: ENV.CLIENT_URL,
-    credentails: true,
+    credentials: true,
 }))
 
 app.get("/admin", (req, res) => {
