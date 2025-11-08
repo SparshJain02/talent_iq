@@ -1,7 +1,7 @@
-import { streamServerClient } from "../lib/stream"
+import { streamChatClient } from "../lib/stream.js"
 export const getStreamToken = (req,res)=>{
     try{
-        const token =  streamServerClient.createToken(req.user.clerkId);
+        const token =  streamChatClient.createToken(req.user.clerkId);
         res.status(200).json({
             token,
             userId: req.user.clerkId,

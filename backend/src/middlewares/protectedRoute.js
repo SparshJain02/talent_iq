@@ -6,7 +6,7 @@ export const protectRoute = [
     requireAuth({signInUrl: "/signup"}), // this will redirect user authentication
     async(req,res,next)=>{
         // let me find whether user exists in db or not
-        const clerkId = req.auth.userId;
+        const clerkId = req.auth.userId; // req.auth.userId contains clerkId
         try{
             const user = await User.findOne({clerkId})
               if(!user){
