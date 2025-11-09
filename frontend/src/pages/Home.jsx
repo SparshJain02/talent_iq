@@ -1,5 +1,4 @@
 import { SignedIn, SignedOut, SignInButton, SignOutButton, UserButton } from '@clerk/clerk-react'
-import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 
 function HomePage() {
@@ -7,7 +6,7 @@ function HomePage() {
     <div>
        <SignedOut>
       <SignInButton>
-        <button className='cursor-pointer' onClick={()=>{toast.success("ahh you clicked me!")}}>Sign In</button>
+        <button className='cursor-pointer'>Sign In</button>
       </SignInButton>
      </SignedOut>
      <SignedIn>

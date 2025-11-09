@@ -1,15 +1,6 @@
 import {  useUser } from '@clerk/clerk-react'
-import { Navigate, Route, Routes } from 'react-router'
-import HomePage from './pages/Home'
 import ProblemsPage from './pages/Problems'
 import { Toaster } from 'react-hot-toast';
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
 function App() {
   // this returns true or false if user is authenticated or not
   const { isSignedIn } = useUser();
@@ -24,7 +15,4 @@ function App() {
     </>
   )
 }
-// tw,daisyui , react-router, react-hot-toaster
-// todo: react-query aka tanstack query , axios
-
 export default App
