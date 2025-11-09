@@ -4,7 +4,7 @@ import { ENV } from "./lib/env.js";
 import { connectDb } from "./lib/db.js";
 import {serve} from "inngest/express"
 import { inngest,functions } from "./lib/inngest.js";
-import { clerkMiddleware } from '@clerk/express'
+import { clerkMiddleware } from '@clerk/express' // adds req.auth.userId
 import chatRoutes from "./routes/chatRoutes.js";
 import sessionRoutes from "./routes/sessionRoutes.js";
 import cors from "cors"
