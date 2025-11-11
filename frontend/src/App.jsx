@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path={"/"} element={!isSignedIn?<HomePage />:<Navigate to={"/dashboard"}/>} />
         <Route path='/dashboard' element={isSignedIn?<DashboardPage/>:<Navigate to={"/"} />} />
-        <Route path='/problem' element={isSignedIn ? <ProblemsPage /> : <Navigate to={"/"} />} /> {/* if user is not authenticated then return to home page*/}
+        <Route path='/problems' element={isSignedIn ? <ProblemsPage /> : <Navigate to={"/"} />} /> {/* if user is not authenticated then return to home page*/}
       </Routes>
       <Toaster />
 
