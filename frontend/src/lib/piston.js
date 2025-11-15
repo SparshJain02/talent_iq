@@ -27,7 +27,7 @@ export async function executeCode(language,code){
         const languageConfig = LANGUAGE_VERSIONS[language];
         if(!languageConfig){
             return {
-                sucess: false,
+                success: false,
                 error: `Unsupported language: ${language}`
             }
         }
