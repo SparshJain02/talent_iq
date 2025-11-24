@@ -5,6 +5,7 @@ export const  createSession = async (req,res)=>{
     try{
 
         // host is the one who will send post request 
+        console.log(req.body);
         const {problem,difficulty} = req.body;
         if(!problem || !difficulty){
             console.error("problem and difficulty are missing -> session_controller");
@@ -45,6 +46,7 @@ export const  getActiveSessions = async (_,res)=>{
     try{
         const sessions = await Session.find({status: "active"})
         .populate("host","name email profilePhoto")
+        .populate("participant","name email profilePhoto")
         .limit(20)
         .sort({createdAt: -1})
 
@@ -61,7 +63,6 @@ export const  getMyRecentSessions = async (req,res)=>{
         const userId = req.user._id;
         // recent sessions will be the one where user could be either host or participant
         const sessions = await Session.find({
-            status: "completed",
             $or: [{host: userId},{participant:userId}],
         })
         .sort({createdAt: -1})

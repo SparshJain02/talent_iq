@@ -26,7 +26,7 @@ app.get("/admin", (req, res) => {
 
 // routes
 app.use("/api/chat",chatRoutes);
-app.use("/api/session",sessionRoutes);
+app.use("/api/sessions",sessionRoutes);
 
 app.listen(ENV.PORT, async () => {
     await connectDb();
