@@ -38,6 +38,7 @@ function ActiveSessions({ sessions, isLoading, isUserInSession }) {
             </div>
           ) : sessions.length > 0 ? (
             sessions.map((session) => (
+              
               <div
                 key={session._id}
                 className="card bg-base-200 border-2 border-base-300 hover:border-primary/50"
