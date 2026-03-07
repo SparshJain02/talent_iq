@@ -3,4 +3,13 @@ const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
     withCredentials: true
 })
+
+export const  setAxiosToken = (token)=>{
+    if(token){
+        axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`
+    }
+    else{
+        delete axiosInstance.defaults.headers.common["Authorization"];
+    }
+}
 export default axiosInstance;

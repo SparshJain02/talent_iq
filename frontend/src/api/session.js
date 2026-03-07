@@ -1,5 +1,10 @@
 import axiosInstance from "../lib/axios.js"
+import {useAuth} from "@clerk/clerk-react"
 
+const useToken = ()=>{
+    const {getToken} = useAuth();
+    return getToken;
+}
 
 export const sessionApi = {
     createSession: async (data)=>{
