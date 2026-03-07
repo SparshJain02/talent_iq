@@ -55,7 +55,7 @@ function CodeEditorPanel({
             {
               fontSize: 18,
               lineNumbers: "on",
-              scrollBeyondLastLine:false,
+              scrollBeyondLastLine:true,
               automaticLayout: true,
               minimap: {
                 enabled: false

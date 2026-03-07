@@ -11,7 +11,7 @@ import RecentSessions from '../components/RecentSessions.jsx';
 
 function DashboardPage() {
   const user = useUser();
-  console.log(user);
+  console.log(user.user.id);
   const navigate = useNavigate()
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [roomConfig,setRoomConfig] = useState({
@@ -33,9 +33,8 @@ function DashboardPage() {
     },
     {
       onSuccess: (data)=>{
-        console.log("data: ",data);
         setShowCreateModal(false);
-        navigate(`session/${data.session._id}`)
+        navigate(`/session/${data.session._id}`)
       },
       onError : (err)=>{
         console.log(err);
@@ -44,8 +43,11 @@ function DashboardPage() {
   )
   }
   const isUserInSession = (session)=>{
-    if(!user.id) return false;
-    return session.host?._id === user.id || session.participant?._id === user.id;
+    if(!user) return false;
+
+    const status = session.host?.clerkId === user.user.id || session.participant?.clerkId === user.user.id;
+    console.log("isUserInSession: ",status);
+    return status;
   }
   const activeSessions = activeSessionsData?.sessions || []; //array of object
   const recentSessions = recentSessionsData?.sessions || [];

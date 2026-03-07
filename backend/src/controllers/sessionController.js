@@ -45,8 +45,8 @@ export const  createSession = async (req,res)=>{
 export const  getActiveSessions = async (_,res)=>{
     try{
         const sessions = await Session.find({status: "active"})
-        .populate("host","name email profilePhoto")
-        .populate("participant","name email profilePhoto")
+        .populate("host","name email profilePhoto clerkId")
+        .populate("participant","name email profilePhoto clerkId")
         .limit(20)
         .sort({createdAt: -1})
 
@@ -86,7 +86,7 @@ export const  getSessionById = async (req,res)=>{
         res.status(200).json({session});
     }
     catch(err){
-        console.error("Failed to get Session by Id sessionController.js",err);
+        console.error("Failed to get Session by Id sessionController.js",);
         res.status(500).json({message: "Internal Server Error"});
     }
 }
@@ -135,6 +135,7 @@ export const  endSession = async (req,res)=>{
 
         session.status = "completed";
         await session.save();
+        res.status(200).json({session,message: "Session deleted successfully"})
     }
     catch(err){
         console.error("Error ending the session -> sessionController.js",err)
