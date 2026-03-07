@@ -1,4 +1,4 @@
-import {  useUser } from '@clerk/clerk-react'
+import {  useAuth, useUser } from '@clerk/clerk-react'
 import ProblemsPage from './pages/ProblemsPage'
 import { Toaster } from 'react-hot-toast';
 import HomePage from './pages/HomePage';
@@ -6,9 +6,21 @@ import { Routes,Route,Navigate, useNavigate } from 'react-router';
 import DashboardPage from './pages/DashboardPage';
 import ProblemPage from './pages/ProblemPage';
 import SessionPage from './pages/SessionPage';
+import { useEffect } from 'react';
+import { setAxiosToken } from './lib/axios.js';
+
 function App() {
   // this returns true or false if user is authenticated or not
   const { isSignedIn , isLoaded } = useUser();
+    const {getToken} = useAuth();
+    useEffect(()=>{
+      const loadToken = async()=>{
+        const token = await getToken();
+        console.log(token);
+        setAxiosToken(token);
+      }
+      loadToken();
+     },[])
   if(!isLoaded) return null;
   return (
     <>
