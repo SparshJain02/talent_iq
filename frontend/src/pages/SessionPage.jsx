@@ -27,7 +27,6 @@ function SessionPage() {
     const sessionResult = useSessionById(id);
     const {data:sessionData, isPending:isSessionLoading,refetch} = sessionResult;
     const session = sessionData?.session
-    console.log(session);
 
     const isHost = session?.host?.clerkId === user?.id;
     const isParticipant = session?.participant?.clerkId === user?.id;
@@ -51,7 +50,6 @@ function SessionPage() {
       setIsRunning(true);
       setOutput(null);
       const result = await executeCode(selectedLanguage,starterCode);
-      console.log(result);
       setOutput(result);
       setIsRunning(false);
     }

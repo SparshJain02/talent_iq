@@ -34,7 +34,6 @@ const CreateSessionModal = ({
                                     problem: e.target.value,
                                     difficulty: selectedProblem.difficulty.toLowerCase()
                                 })
-                                console.log(roomConfig);
                             }}
                         >
                             <option value="" disabled>

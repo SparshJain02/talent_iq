@@ -5,7 +5,6 @@ export const  createSession = async (req,res)=>{
     try{
 
         // host is the one who will send post request 
-        console.log(req.body);
         const {problem,difficulty} = req.body;
         if(!problem || !difficulty){
             console.error("problem and difficulty are missing -> session_controller");
