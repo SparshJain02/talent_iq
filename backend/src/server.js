@@ -19,26 +19,24 @@ app.use(cors({
     origin: ENV.CLIENT_URL,
     credentials: true,
 }))
-
-app.get("/admin", (req, res) => {
-    res.status(200).send({ message: "Welcome admin!" })
-})
-
 // routes
 app.use("/api/chat",chatRoutes);
 app.use("/api/sessions",sessionRoutes);
 
-app.listen(ENV.PORT, async () => {
-    await connectDb();
-    console.log("server is running on port" , ENV.PORT)
-})
 
-// make our app ready for deployment
-if (ENV.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../frontend/dist")));
+await connectDb();
+export default app;
+// app.listen(ENV.PORT, async () => {
+//     await connectDb();
+//     console.log("server is running on port" , ENV.PORT)
+// })
 
-    // if none of the server routes match the request then follows our react app 
-    app.get("/{*any}", (req, res) => {
-        res.sendFile(path.join(__dirname, "../frontend/dist/index.html"))
-    })
-}
+// // make our app ready for deployment
+// if (ENV.NODE_ENV === "production") {
+//     app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+//     // if none of the server routes match the request then follows our react app 
+//     app.get("/{*any}", (req, res) => {
+//         res.sendFile(path.join(__dirname, "../frontend/dist/index.html"))
+//     })
+// }
