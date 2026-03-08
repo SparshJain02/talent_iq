@@ -7,20 +7,23 @@ import DashboardPage from './pages/DashboardPage';
 import ProblemPage from './pages/ProblemPage';
 import SessionPage from './pages/SessionPage';
 import { useEffect } from 'react';
-import { setAxiosToken } from './lib/axios.js';
+import axiosInstance from './lib/axios.js';
 
 function App() {
   // this returns true or false if user is authenticated or not
   const { isSignedIn , isLoaded } = useUser();
     const {getToken} = useAuth();
+
     useEffect(()=>{
-      const loadToken = async()=>{
+      const interceptor = axiosInstance.interceptors.request.use(async function(config){
         const token = await getToken();
-        console.log(token);
-        setAxiosToken(token);
+        config.headers.Authorization = `Bearer ${token}`;
+        return config;
+      })
+      return ()=>{
+        axiosInstance.interceptors.request.eject(interceptor);
       }
-      loadToken();
-     },[])
+     },[getToken])
   if(!isLoaded) return null;
   return (
     <>
