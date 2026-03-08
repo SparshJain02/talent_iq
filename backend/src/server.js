@@ -25,9 +25,9 @@ app.use("/debug",(req,res)=>{
     res.json({ cookies: req.headers.cookie, auth: req.headers.authorization });
 })
 
-// await connectDb();
-// export default app;
-app.listen(ENV.PORT, async () => {
-    await connectDb();
-    console.log("server is running on port" , ENV.PORT)
-})
+await connectDb();
+export default app;
+// app.listen(ENV.PORT, async () => {
+//     await connectDb();
+//     console.log("server is running on port" , ENV.PORT)
+// })
